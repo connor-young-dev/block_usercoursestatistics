@@ -1,0 +1,8 @@
+#block-user-course-statistics {
+    max-width: 1200px;
+}
+
+#block-user-course-statistics .flex-item {
+    width: 20%;
+    min-width: 200px;
+}
