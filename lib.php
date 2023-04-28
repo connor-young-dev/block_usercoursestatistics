@@ -1,44 +1,44 @@
 <?php
-function block_usercoursestatistics_enrolled_courses($courses) {
-    // Count the number of courses.
-    $numcourses = count($courses);
 
-    return $numcourses;
+use \core_completion\progress;
+
+function block_usercoursestatistics_get_user_course_completions($userid, $courses) {
+    $completedcount = 0;
+    $inprogresscount = 0;
+
+    foreach ($courses as $course) {
+        $progress = progress::get_course_progress_percentage($course, $userid);
+        if (isset($progress) && $progress < 100) {
+            $inprogresscount++;
+        }
+        if ($progress === 100) {
+            $completedcount++;
+        }
+    }
+
+    return array(
+        'completed' => $completedcount,
+        'inprogress' => $inprogresscount
+    );
 }
 
-function block_usercoursestatistics_get_user_courses_completion(array $courses, int $userid) {
-    global $DB, $CFG;
-    require_once($CFG->libdir . '/completionlib.php');
+function block_usercoursestatistics_get_course_certificates($userid) {
+    global $DB;
 
-    $courseids = array_map(function($course) {
-        return $course->id;
-    }, $courses);
+    $certificateplugin = $DB->get_record('modules', ['name' => 'coursecertificate']);
 
-    if (empty($courseids)) {
-        return [];
+    if (empty($certificateplugin)) {
+        return;
     }
 
-    [$insql, $inparams] = $DB->get_in_or_equal($courseids, SQL_PARAMS_NAMED, 'cid');
+    $certificatecount = $DB->count_records_sql("
+                SELECT COUNT(c.id)
+                FROM {course_modules} cm
+                JOIN {course_modules_completion} cmc ON cmc.coursemoduleid = cm.id
+                JOIN {coursecertificate} c ON c.id = cm.instance
+                WHERE cm.module = :moduleid AND cmc.userid = :userid AND cmc.completionstate = :state",
+        ['moduleid' => $certificateplugin->id, 'userid' => $userid, 'state' => COMPLETION_COMPLETE]
+    );
 
-    $sql = "
-        SELECT course, timecompleted
-            FROM {course_completions}
-            WHERE course $insql AND userid = :userid
-    ";
-    $params = $inparams + ['userid' => $userid];
-    $completions = $DB->get_records_sql($sql, $params);
-    $coursecompletions = [];
-    foreach ($courses as $course) {
-        $completion = new completion_info($course);
-        $coursecompletions[$course->id] = (object) [
-            'timecompleted' => $completions[$course->id]->timecompleted ?? null,
-            'completionenabled' => $completion->is_enabled(),
-        ];
-    }
-
-    $numcompletedcourses = count(array_filter($coursecompletions, function($completion) {
-        return !is_null($completion->timecompleted);
-    }));
-
-    return $numcompletedcourses;
+    return $certificatecount;
 }
