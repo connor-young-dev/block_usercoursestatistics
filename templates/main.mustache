@@ -1,5 +1,6 @@
 {{! TODO - Improve and style }}
 <div id="block-user-course-statistics" class="flex-container d-flex justify-content-between flexible-wrap">
+    {{#showenrolledcourses}}
     <div class="flex-item course-enrolments">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="26.481" height="26.481" viewBox="0 0 26.481 26.481">
             <g id="Group_762" data-name="Group 762" transform="translate(15.476)">
@@ -42,6 +43,9 @@
             <p>{{{ enrolledcourses }}} {{#str}}active, core{{/str}}</p>
         </div>
     </div>
+    {{/showenrolledcourses}}
+
+    {{#showcompletedcourses}}
     <div class="flex-item course-completions">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="21.026" height="26.921" viewBox="0 0 21.026 26.921">
             <g id="task" transform="translate(-61)">
@@ -55,6 +59,9 @@
             <p>{{{ completedcourses }}} {{#str}}completedcourses, block_usercoursestatistics{{/str}}</p>
         </div>
     </div>
+    {{/showcompletedcourses}}
+
+    {{#showinprogresscourses}}
     <div class="flex-item course-progress">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="21.026" height="26.921" viewBox="0 0 21.026 26.921">
             <g id="task" transform="translate(-61)">
@@ -68,6 +75,9 @@
             <p>{{{ inprogresscourses }}} {{#str}}inprogresscourses, block_usercoursestatistics{{/str}}</p>
         </div>
     </div>
+    {{/showinprogresscourses}}
+
+    {{#showbadges}}
     <div class="flex-item badges-awarded">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="20.33" height="26.921" viewBox="0 0 20.33 26.921">
             <g id="badge" transform="translate(-0.002)">
@@ -82,6 +92,9 @@
             <p>{{{ badges }}} {{#str}}awarded, block_usercoursestatistics{{/str}}</p>
         </div>
     </div>
+    {{/showbadges}}
+
+    {{#showcertificates}}
     <div class="flex-item certificates-awarded">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24.356" height="19.65" viewBox="0 0 24.356 19.65">
             <g id="certificate" transform="translate(0 -87.994)">
@@ -100,4 +113,5 @@
             <p>{{{ certificates }}} {{#str}}awarded, block_usercoursestatistics{{/str}}</p>
         </div>
     </div>
+    {{/showcertificates}}
 </div>

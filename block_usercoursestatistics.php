@@ -8,6 +8,10 @@ class block_usercoursestatistics extends block_base {
         $this->title = get_string('pluginname', 'block_usercoursestatistics');
     }
 
+    public function has_config() {
+        return true;
+    }
+
     public function get_content() {
         if (isset($this->content)) {
             return $this->content;
