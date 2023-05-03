@@ -9,7 +9,7 @@ global $USER;
 $user_id = $USER->id;
 
 // Set up response array.
-$response = array(
+$response = [
     'enrolledcourses' => null,
     'inprogresscourses' => null,
     'completedcourses' => null,
@@ -20,7 +20,7 @@ $response = array(
     'showcompletedcourses' => null,
     'showbadges' => null,
     'showcertificates' => null
-);
+];
 
 // Get user course statistics.
 $enrolledcourses = $completedcourses = $inprogresscourses = $badges = $certificates = null;
