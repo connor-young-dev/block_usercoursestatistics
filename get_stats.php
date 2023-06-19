@@ -1,5 +1,7 @@
 <?php
 
+define('AJAX_SCRIPT', true);
+
 require_once('../../config.php');
 require_once(__DIR__ . '/lib.php');
 require_once($CFG->libdir . '/badgeslib.php');
