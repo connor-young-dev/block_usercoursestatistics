@@ -44,6 +44,24 @@
         </div>
     </div>
     {{/showcertificates}}
+
+    {{#showlearningplans}}
+    <div class="flex-item learning-plans">
+        <div>
+            <span class="h5">Learning Plans Allocated</span>
+            <p><span id="learning-plans"></span> Allocated</p>
+        </div>
+    </div>
+    {{/showlearningplans}}
+
+    {{#showcompletedplans}}
+    <div class="flex-item completed-learning-plans">
+        <div>
+            <span class="h5">Learning Plans Completed</span>
+            <p><span id="completed-learning-plans"></span> Completed</p>
+        </div>
+    </div>
+    {{/showcompletedplans}}
 </div>
 {{#js}}
     require(['block_usercoursestatistics/get_stats'], (userCourseStats) => userCourseStats.init());

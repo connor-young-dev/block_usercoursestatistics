@@ -26,3 +26,7 @@ $string['showbadges'] = 'Show badges';
 $string['showbadges_desc'] = 'Show the number of badges the user has been awarded.';
 $string['showcoursecertificates'] = 'Show course certificates';
 $string['showcoursecertificates_desc'] = 'Show the number of course certificates the user has been awarded. This is from the mod_coursecertificates plugin, which will need to be installed in order to use this reporting.';
+$string['showallocatedlearningplans'] = 'Show allocated learning plans';
+$string['showallocatedlearningplans_desc'] = 'Show the number of learning plans the user is allocated to.';
+$string['showcompletedlearningplans'] = 'Show completed learning plans';
+$string['showcompletedlearningplans_desc'] = 'Show the number of learning plans the user has completed.';

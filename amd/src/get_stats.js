@@ -23,6 +23,12 @@ export const init = () => {
             if (response.showcertificates == 1) {
                 document.getElementById('certificates-count').textContent = response.certificates;
             }
+            if (response.showlearningplans == 1) {
+                document.getElementById('learning-plans').textContent = response.learningplans;
+            }
+            if (response.showcompletedlearningplans == 1) {
+                document.getElementById('completed-learning-plans').textContent = response.completedlearningplans;
+            }
         } else {
             // Error handling.
             console.log('Error:', xhr.statusText);

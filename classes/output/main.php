@@ -15,13 +15,17 @@ class main implements renderable, templatable {
         $showinprogresscourses = get_config('block_usercoursestatistics', 'showinprogresscourses');
         $showbadges = get_config('block_usercoursestatistics', 'showbadges');
         $showcertificates = get_config('block_usercoursestatistics', 'showcoursecertificates');
+        $showlearningplans = get_config('block_usercoursestatistics', 'showallocatedlearningplans');
+        $showcompletedplans = get_config('block_usercoursestatistics', 'showcompletedlearningplans');
 
         return [
             'showenrolledcourses' => $showenrolledcourses,
             'showinprogresscourses' => $showinprogresscourses,
             'showcompletedcourses' => $showcompletedcourses,
             'showbadges' => $showbadges,
-            'showcertificates' => $showcertificates
+            'showcertificates' => $showcertificates,
+            'showlearningplans' => $showlearningplans,
+            'showcompletedplans' => $showcompletedplans
         ];
     }
 }

@@ -17,21 +17,27 @@ $response = [
     'completedcourses' => null,
     'badges' => null,
     'certificates' => null,
+    'learningplans' => null,
+    'completedlearningplans' => null,
     'showenrolledcourses' => null,
     'showinprogresscourses' => null,
     'showcompletedcourses' => null,
     'showbadges' => null,
-    'showcertificates' => null
+    'showcertificates' => null,
+    'showlearningplans' => null,
+    'showcompletedlearningplans' => null
 ];
 
 // Get user course statistics.
-$enrolledcourses = $completedcourses = $inprogresscourses = $badges = $certificates = null;
+$enrolledcourses = $completedcourses = $inprogresscourses = $badges = $certificates = $allplans = $complatedplans = null;
 
 $showenrolledcourses = get_config('block_usercoursestatistics', 'showenrolledcourses');
 $showcompletedcourses = get_config('block_usercoursestatistics', 'showcompletedcourses');
 $showinprogresscourses = get_config('block_usercoursestatistics', 'showinprogresscourses');
 $showbadges = get_config('block_usercoursestatistics', 'showbadges');
 $showcertificates = get_config('block_usercoursestatistics', 'showcoursecertificates');
+$showallplans = get_config('block_usercoursestatistics', 'showallocatedlearningplans');
+$showcompletedplans = get_config('block_usercoursestatistics', 'showcompletedlearningplans');
 
 if ($showenrolledcourses || $showcompletedcourses || $showinprogresscourses) {
     $courses = enrol_get_users_courses($user_id);
@@ -50,17 +56,28 @@ if ($showenrolledcourses || $showcompletedcourses || $showinprogresscourses) {
 $badges = $showbadges ? count(badges_get_user_badges($user_id)) : null;
 $certificates = $showcertificates ? block_usercoursestatistics_get_course_certificates($user_id) : null;
 
+if ($showallplans || $showcompletedplans) {
+    $learningplans = block_usercoursestatistics_get_learning_plans($user_id);
+
+    $allplans = $showallplans ? $learningplans['allplanscount'] : null;
+    $completedplans = $showcompletedplans ? $learningplans['completedplanscount'] : null;
+}
+
 // Populate response array.
 $response['enrolledcourses'] = $enrolledcourses;
 $response['inprogresscourses'] = $inprogresscourses;
 $response['completedcourses'] = $completedcourses;
 $response['badges'] = $badges;
 $response['certificates'] = $certificates;
+$response['learningplans'] = $allplans;
+$response['completedlearningplans'] = $completedplans;
 $response['showenrolledcourses'] = $showenrolledcourses;
 $response['showinprogresscourses'] = $showinprogresscourses;
 $response['showcompletedcourses'] = $showcompletedcourses;
 $response['showbadges'] = $showbadges;
 $response['showcertificates'] = $showcertificates;
+$response['showlearningplans'] = $showallplans;
+$response['showcompletedlearningplans'] = $showcompletedplans;
 
 // Send response.
 header('Content-Type: application/json');
