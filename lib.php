@@ -16,10 +16,10 @@ function block_usercoursestatistics_get_user_course_completions($userid, $course
         }
     }
 
-    return array(
+    return [
         'completed' => $completedcount,
         'inprogress' => $inprogresscount
-    );
+    ];
 }
 
 function block_usercoursestatistics_get_course_certificates($userid) {
