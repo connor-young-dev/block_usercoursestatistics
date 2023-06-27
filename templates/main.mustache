@@ -68,6 +68,12 @@
             <p><span id="active-time"></span></p>
         </div>
     </div>
+    <div class="flex-item course-time">
+        <div>
+            <span class="h5">Time spent in course (current session)</span>
+            <p><span id="course-time"></span></p>
+        </div>
+    </div>
 </div>
 {{#js}}
     require(['block_usercoursestatistics/get_stats'], (userCourseStats) => userCourseStats.init());
