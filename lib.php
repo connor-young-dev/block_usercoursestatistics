@@ -68,3 +68,29 @@ function block_usercoursestatistics_get_learning_plans($userid) {
         'completedplanscount' => $completedplanscount
     ];
 }
+
+function block_usercoursestatistics_get_user_session_time($userid) {
+    global $DB;
+
+    // Get the user's current login timestamp from the Moodle database.
+    $user = $DB->get_record('user', ['id' => $userid], 'currentlogin');
+
+    if ($user && $user->currentlogin) {
+        // Calculate the duration of the current session.
+        $startTime = $user->currentlogin;
+        $endTime = time();
+        $duration = $endTime - $startTime;
+
+        // Convert the duration to "HH:MM" format.
+        $hours = floor($duration / 3600);
+        $minutes = floor(($duration % 3600) / 60);
+        $seconds = $duration % 60;
+
+        // Format the time as "HH:MM".
+        $formattedTime = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+
+        return $formattedTime;
+    }
+
+    return "00:00";
+}

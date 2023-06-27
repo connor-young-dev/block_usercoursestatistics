@@ -18,6 +18,7 @@ $response = [
     'badges' => null,
     'certificates' => null,
     'learningplans' => null,
+    'activetime' => null,
     'completedlearningplans' => null,
     'showenrolledcourses' => null,
     'showinprogresscourses' => null,
@@ -29,7 +30,7 @@ $response = [
 ];
 
 // Get user course statistics.
-$enrolledcourses = $completedcourses = $inprogresscourses = $badges = $certificates = $allplans = $complatedplans = null;
+$enrolledcourses = $completedcourses = $inprogresscourses = $badges = $certificates = $allplans = $complatedplans = $activetime = null;
 
 $showenrolledcourses = get_config('block_usercoursestatistics', 'showenrolledcourses');
 $showcompletedcourses = get_config('block_usercoursestatistics', 'showcompletedcourses');
@@ -63,12 +64,15 @@ if ($showallplans || $showcompletedplans) {
     $completedplans = $showcompletedplans ? $learningplans['completedplanscount'] : null;
 }
 
+$activetime = block_usercoursestatistics_get_user_session_time($user_id);
+
 // Populate response array.
 $response['enrolledcourses'] = $enrolledcourses;
 $response['inprogresscourses'] = $inprogresscourses;
 $response['completedcourses'] = $completedcourses;
 $response['badges'] = $badges;
 $response['certificates'] = $certificates;
+$response['activetime'] = $activetime;
 $response['learningplans'] = $allplans;
 $response['completedlearningplans'] = $completedplans;
 $response['showenrolledcourses'] = $showenrolledcourses;

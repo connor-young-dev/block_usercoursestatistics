@@ -29,6 +29,7 @@ export const init = () => {
             if (response.showcompletedlearningplans == 1) {
                 document.getElementById('completed-learning-plans').textContent = response.completedlearningplans;
             }
+            document.getElementById('active-time').textContent = response.activetime;
         } else {
             // Error handling.
             console.log('Error:', xhr.statusText);

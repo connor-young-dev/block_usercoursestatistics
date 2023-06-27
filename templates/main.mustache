@@ -62,7 +62,15 @@
         </div>
     </div>
     {{/showcompletedplans}}
+    <div class="flex-item active-time">
+        <div>
+            <span class="h5">Time logged in (current session)</span>
+            <p><span id="active-time"></span></p>
+        </div>
+    </div>
 </div>
 {{#js}}
     require(['block_usercoursestatistics/get_stats'], (userCourseStats) => userCourseStats.init());
+
+    require(['block_usercoursestatistics/timer'], (Timer) => Timer.init());
 {{/js}}
