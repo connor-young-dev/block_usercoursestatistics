@@ -81,35 +81,16 @@ function block_usercoursestatistics_get_user_session_time($userid) {
         $endTime = time();
         $duration = $endTime - $startTime;
 
-        $formattedSessionTime = gmdate("H:i:s", $duration);
+        // Convert the duration to "HH:MM" format.
+        $hours = floor($duration / 3600);
+        $minutes = floor(($duration % 3600) / 60);
+        $seconds = $duration % 60;
 
-        // Get the course access records for the current session.
-        $courseAccessRecords = $DB->get_records_select('logstore_standard_log', "userid = :userid AND courseid > 1 AND action = 'viewed' AND timecreated > :starttime AND timecreated < :endtime GROUP BY courseid", [
-            'userid' => $userid,
-            'starttime' => $startTime,
-            'endtime' => $endTime
-        ]);
+        // Format the time as "HH:MM".
+        $formattedTime = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
 
-        // Calculate the total time spent in all courses during the session.
-        $totalCourseTime = 0;
-
-        foreach ($courseAccessRecords as $access) {
-            $accessDuration = $access->timecreated - $startTime;
-            $totalCourseTime += $accessDuration;
-        }
-
-        // Convert the total course time to "HH:MM:SS" format.
-        $formattedCourseTime = gmdate("H:i:s", $totalCourseTime);
-
-        return [
-            'sessiontime' => $formattedSessionTime,
-            'coursetime' => $formattedCourseTime
-        ];
+        return $formattedTime;
     }
 
-    // Return default values if user session not found.
-    return [
-        'sessiontime' => '00:00:00',
-        'coursetime' => '00:00:00'
-    ];
+    return "00:00";
 }

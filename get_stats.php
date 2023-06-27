@@ -65,8 +65,6 @@ if ($showallplans || $showcompletedplans) {
 }
 
 $activetime = block_usercoursestatistics_get_user_session_time($user_id);
-$coursetime = $activetime['coursetime'];
-$activetime = $activetime['sessiontime'];
 
 // Populate response array.
 $response['enrolledcourses'] = $enrolledcourses;
@@ -75,7 +73,6 @@ $response['completedcourses'] = $completedcourses;
 $response['badges'] = $badges;
 $response['certificates'] = $certificates;
 $response['activetime'] = $activetime;
-$response['coursetime'] = $coursetime;
 $response['learningplans'] = $allplans;
 $response['completedlearningplans'] = $completedplans;
 $response['showenrolledcourses'] = $showenrolledcourses;
