@@ -1,5 +1,6 @@
 #block-user-course-statistics {
     max-width: 1200px;
+    flex-direction: column;
 }
 
 #block-user-course-statistics .flex-item {

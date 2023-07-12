@@ -30,6 +30,7 @@ export const init = () => {
                 document.getElementById('completed-learning-plans').textContent = response.completedlearningplans;
             }
             document.getElementById('active-time').textContent = response.activetime;
+            document.getElementById('last-course-completed').textContent = response.lastcoursecompleted;
         } else {
             // Error handling.
             console.log('Error:', xhr.statusText);

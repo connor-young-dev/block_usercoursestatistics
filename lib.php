@@ -94,3 +94,26 @@ function block_usercoursestatistics_get_user_session_time($userid) {
 
     return "00:00";
 }
+
+function block_usercoursestatistics_get_last_course_completed($userid) {
+    global $DB;
+
+    // Retrieve the last completed course for the user
+    $sql = "SELECT c.id, c.fullname, cc.timecompleted
+            FROM {course_completions} cc
+            JOIN {course} c ON c.id = cc.course
+            WHERE cc.userid = :userid
+            ORDER BY cc.timecompleted DESC
+            LIMIT 1";
+    $params = array('userid' => $userid);
+    $course = $DB->get_record_sql($sql, $params);
+
+    if ($course) {
+        // Course found, format the completion date/time
+        $formatted_date = date('F j, Y, g:i a', $course->timecompleted);
+        return array('fullname' => $course->fullname, 'timecompleted' => $formatted_date);
+    } else {
+        // No completed courses found for the user
+        return 'No courses marked as complete.';
+    }
+}
